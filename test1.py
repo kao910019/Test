@@ -16,10 +16,10 @@ time = tf.expand_dims(time_placeholder,axis=1)
 value = tf.expand_dims(value_placeholder,axis=1)
 
 #Full connect layer
-full_connect1 = tf.layers.dense(time, 30, activation=tf.nn.leaky_relu)
-full_connect2 = tf.layers.dense(full_connect1, 29, activation=tf.nn.leaky_relu)
-full_connect3 = tf.layers.dense(full_connect2, 30, activation=tf.nn.leaky_relu)
-full_connect4 = tf.layers.dense(full_connect3, 29, activation=tf.nn.leaky_relu)
+full_connect1 = tf.layers.dense(time, 50, activation=tf.nn.leaky_relu)
+full_connect2 = tf.layers.dense(full_connect1, 25, activation=tf.nn.leaky_relu)
+full_connect3 = tf.layers.dense(full_connect2, 50, activation=tf.nn.leaky_relu)
+full_connect4 = tf.layers.dense(full_connect3, 25, activation=tf.nn.leaky_relu)
 predict_value = tf.layers.dense(full_connect4, 1, activation=tf.nn.leaky_relu)
 
 #loss function MAE
@@ -34,13 +34,13 @@ with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     
     #training 2000 times
-    for epoch in range(2000):
+    for epoch in range(10000):
         output_time, output_value, output_predict, _ = sess.run(
                 [time, value, predict_value, train_op],
                  feed_dict={time_placeholder: t, value_placeholder: y})
         
         #print it
-        if epoch % 100 == 0:
+        if epoch % 1000 == 0:
             plt.figure()
             plt.plot(output_time, output_value)
             plt.plot(output_time, output_predict)
