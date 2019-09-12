@@ -15,10 +15,10 @@ time = tf.expand_dims(time_placeholder,axis=1)
 value = tf.expand_dims(value_placeholder,axis=1)
 
 #Full connect layer
-full_connect1 = tf.layers.dense(time, 15, activation=tf.nn.leaky_relu)
-full_connect2 = tf.layers.dense(full_connect1, 13, activation=tf.nn.leaky_relu)
-full_connect3 = tf.layers.dense(full_connect2, 15, activation=tf.nn.leaky_relu)
-full_connect4 = tf.layers.dense(full_connect3, 13, activation=tf.nn.leaky_relu)
+full_connect1 = tf.layers.dense(time, 30, activation=tf.nn.leaky_relu)
+full_connect2 = tf.layers.dense(full_connect1, 29, activation=tf.nn.leaky_relu)
+full_connect3 = tf.layers.dense(full_connect2, 30, activation=tf.nn.leaky_relu)
+full_connect4 = tf.layers.dense(full_connect3, 29, activation=tf.nn.leaky_relu)
 full_connect5 = tf.layers.dense(full_connect4, 1, activation=tf.nn.leaky_relu)
 
 #loss function MAE
