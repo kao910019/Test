@@ -33,7 +33,7 @@ with tf.Session() as sess:
     #init variables
     sess.run(tf.global_variables_initializer())
     
-    #training 2000 times
+    #training 10000 times
     for epoch in range(10000):
         output_time, output_value, output_predict, _ = sess.run(
                 [time, value, predict_value, train_op],
