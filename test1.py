@@ -11,6 +11,7 @@ y = np.sin(t*(np.pi/180))
 time_placeholder = tf.placeholder(tf.float32, [None])
 value_placeholder = tf.placeholder(tf.float32, [None])
 
+# change shape to [batch_size, 1]
 time = tf.expand_dims(time_placeholder,axis=1)
 value = tf.expand_dims(value_placeholder,axis=1)
 
@@ -19,10 +20,10 @@ full_connect1 = tf.layers.dense(time, 30, activation=tf.nn.leaky_relu)
 full_connect2 = tf.layers.dense(full_connect1, 29, activation=tf.nn.leaky_relu)
 full_connect3 = tf.layers.dense(full_connect2, 30, activation=tf.nn.leaky_relu)
 full_connect4 = tf.layers.dense(full_connect3, 29, activation=tf.nn.leaky_relu)
-full_connect5 = tf.layers.dense(full_connect4, 1, activation=tf.nn.leaky_relu)
+predict_value = tf.layers.dense(full_connect4, 1, activation=tf.nn.leaky_relu)
 
 #loss function MAE
-loss = tf.losses.absolute_difference(value, full_connect5)
+loss = tf.losses.absolute_difference(value, predict_value)
 
 #minimize
 optimizer = tf.train.AdamOptimizer(8e-4)
@@ -35,7 +36,7 @@ with tf.Session() as sess:
     #training 2000 times
     for epoch in range(2000):
         output_time, output_value, output_predict, _ = sess.run(
-                [time, value, full_connect5, train_op],
+                [time, value, predict_value, train_op],
                  feed_dict={time_placeholder: t, value_placeholder: y})
         
         #print it
