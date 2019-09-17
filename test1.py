@@ -16,11 +16,11 @@ time = tf.expand_dims(time_placeholder,axis=1)
 value = tf.expand_dims(value_placeholder,axis=1)
 
 #Full connect layer
-full_connect1 = tf.layers.dense(time, 50, activation=tf.nn.leaky_relu)
-full_connect2 = tf.layers.dense(full_connect1, 25, activation=tf.nn.leaky_relu)
-full_connect3 = tf.layers.dense(full_connect2, 50, activation=tf.nn.leaky_relu)
-full_connect4 = tf.layers.dense(full_connect3, 25, activation=tf.nn.leaky_relu)
-predict_value = tf.layers.dense(full_connect4, 1, activation=tf.nn.leaky_relu)
+full_connect1 = tf.layers.dense(time, 50, activation=tf.nn.tanh)
+full_connect2 = tf.layers.dense(full_connect1, 25, activation=tf.nn.tanh)
+full_connect3 = tf.layers.dense(full_connect2, 50, activation=tf.nn.tanh)
+full_connect4 = tf.layers.dense(full_connect3, 25, activation=tf.nn.tanh)
+predict_value = tf.layers.dense(full_connect4, 1, activation=tf.nn.tanh)
 
 #loss function MAE
 loss = tf.losses.absolute_difference(value, predict_value)
