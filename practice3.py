@@ -66,7 +66,7 @@ with tf.Session() as sess:
     #training 10000 times
     for epoch in range(num_iters):
 
-        output_x, output_y, output_predict, output_summary, output_step, _ = sess.run([output],
+        output_x, output_y, output_predict, output_summary, output_step, _ = sess.run(output,
                  feed_dict={x_placeholder: x, y_placeholder: y})
         
         summary_writer.add_summary(output_summary, output_step)
