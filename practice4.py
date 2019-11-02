@@ -55,7 +55,7 @@ def Network(x, y):
         
         summary = tf.summary.merge([tf.summary.scalar("loss", loss)])
         
-    return bx, by, predict_y, summary, global_step, train_op
+    return bx, by, predict_y, global_step, summary, train_op
 
 with tf.Session() as sess:
     with sess.graph.as_default():
@@ -78,7 +78,7 @@ with tf.Session() as sess:
     #training 10000 times
     for epoch in range(num_iters):
 
-        output_x, output_y, output_predict, output_summary, output_step, _ = sess.run(output,
+        output_x, output_y, output_predict, output_step, output_summary, _ = sess.run(output,
                  feed_dict={x_placeholder: x, y_placeholder: y})
         
         summary_writer.add_summary(output_summary, output_step)
