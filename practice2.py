@@ -23,21 +23,21 @@ x = ax[indice]
 y = ay[indice]
 
 #placeholder
-time_placeholder = tf.placeholder(tf.float32, [None])
-value_placeholder = tf.placeholder(tf.float32, [None])
+x_placeholder = tf.placeholder(tf.float32, [None])
+y_placeholder = tf.placeholder(tf.float32, [None])
 
 # change shape to [batch_size, 1]
-time = tf.expand_dims(time_placeholder,axis=1)
-value = tf.expand_dims(value_placeholder,axis=1)
+bx = tf.expand_dims(x_placeholder,axis=1)
+by = tf.expand_dims(y_placeholder,axis=1)
 
 #Full connect layer
-output = time
+output = bx
 for i in range(num_dense_layer):
   output = tf.layers.dense(output, num_hidden_units, activation=tf.nn.tanh)
-predict_value = tf.layers.dense(output, 1)
+predict_y = tf.layers.dense(output, 1)
 
 #loss function MAE
-loss = tf.losses.absolute_difference(value, predict_value)
+loss = tf.losses.absolute_difference(by, predict_y)
 
 #minimize
 optimizer = tf.train.AdamOptimizer(learning_rate)
@@ -50,13 +50,14 @@ with tf.Session() as sess:
     #training 10000 times
     for epoch in range(num_iters):
 
-        output_time, output_value, output_predict, _ = sess.run(
-                [time, value, predict_value, train_op],
-                 feed_dict={time_placeholder: x, value_placeholder: y})
+        output_x, output_y, output_predict, _ = sess.run(
+                [bx, by, predict_y, train_op],
+                 feed_dict={x_placeholder: x, y_placeholder: y})
         
         #print it
         if epoch % 1000 == 0:
             plt.figure()
-            plt.plot(output_time, output_value, 'o')
-            plt.plot(output_time, output_predict, '-')
+            plt.plot(output_x, output_y, 'o')
+            plt.plot(output_x, output_predict, '-')
             plt.show()
+            
