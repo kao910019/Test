@@ -9,7 +9,7 @@ RESULT_DIR = os.path.join(SYSTEM_ROOT, 'result')
 SAVE_FILE = os.path.join(RESULT_DIR, 'save')
 
 # hyper parameters
-x_range = 720
+x_range = 400
 num_point = 100
 num_iters = 500
 num_dense_layer = 10
@@ -20,7 +20,8 @@ learning_rate = 8e-5
 ax = np.arange(0, x_range)
 ay = 0.0
 for i in range(1, 30, 2):
-  ay += (np.sin(i*ax*(np.pi/180.0)) / i)
+  ay += (np.sin(i*0.01*ax*np.pi) / i)
+  
   
 y = ay + (0.5 * np.random.rand(x_range))
 indice = np.sort(np.random.choice(x_range, num_point))
