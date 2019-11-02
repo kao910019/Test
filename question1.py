@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #source data
-t = np.arange(0, 360)
+t = np.arange(0, 720)
 y = np.sin(t*(np.pi/180))
 
 #placeholder
@@ -34,7 +34,7 @@ with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     
     #training 10000 times
-    for epoch in range(10000):
+    for epoch in range(20000):
         output_time, output_value, output_predict, _ = sess.run(
                 [time, value, predict_value, train_op],
                  feed_dict={time_placeholder: t, value_placeholder: y})
@@ -45,10 +45,3 @@ with tf.Session() as sess:
             plt.plot(output_time, output_value)
             plt.plot(output_time, output_predict)
             plt.show()
-
-
-
-
-
-
-
