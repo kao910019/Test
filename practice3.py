@@ -31,17 +31,17 @@ def Network(x, y):
         global_step = tf.Variable(0, name = 'global_step', trainable=False)
     
         # change shape to [batch_size, 1]
-        x = tf.expand_dims(x,axis=1)
-        y = tf.expand_dims(y,axis=1)
+        bx = tf.expand_dims(x,axis=1)
+        by = tf.expand_dims(y,axis=1)
         
         #Full connect layer
-        output = x
+        output = bx
         for i in range(num_dense_layer):
           output = tf.layers.dense(output, num_hidden_units, activation=tf.nn.tanh)
         predict_y = tf.layers.dense(output, 1)
         
         #loss function MAE
-        loss = tf.losses.absolute_difference(y, predict_y)
+        loss = tf.losses.absolute_difference(by, predict_y)
         
         #minimize
         optimizer = tf.train.AdamOptimizer(learning_rate)
@@ -49,7 +49,7 @@ def Network(x, y):
         
         summary = tf.summary.merge([tf.summary.scalar("loss", loss)])
         
-    return x, y, predict_y, summary, global_step, train_op
+    return bx, by, predict_y, summary, global_step, train_op
 
 
 with tf.Session() as sess:
