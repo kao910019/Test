@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    Question 2:
+    Question:
         
         There're two 2D - matrix called matrix1 and matrix2.
         Try to combine them and rebuild to another matrix like below.
