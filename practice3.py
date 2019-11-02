@@ -22,7 +22,6 @@ ay = 0.0
 for i in range(1, 30, 2):
   ay += (np.sin(i*0.01*ax*np.pi) / i)
   
-  
 y = ay + (0.5 * np.random.rand(x_range))
 indice = np.sort(np.random.choice(x_range, num_point))
 x = ax[indice]
