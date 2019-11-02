@@ -75,7 +75,7 @@ with tf.Session() as sess:
         if epoch % 1000 == 0:
             plt.figure()
             plt.plot(output_x, output_y, 'o')
-            plt.plot(output_x, output_y, '-')
+            plt.plot(output_x, output_predict, '-')
             plt.show()
     
     summary_writer.close()
