@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #source data
-x = np.arange(0, 720)
-y = np.sin(x*(np.pi/180))
+x = np.arange(0, 400)
+y = np.sin(0.01 * x * np.pi)
 
 #placeholder
 x_placeholder = tf.placeholder(tf.float32, [None])
