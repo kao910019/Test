@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
+import os
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
+SYSTEM_ROOT = os.path.abspath(os.path.dirname(__file__))
+RESULT_DIR = os.path.join(SYSTEM_ROOT, 'result')
+SAVE_FILE = os.path.join(RESULT_DIR, 'save')
+
 # hyper parameters
 x_range = 720
 num_point = 100
-num_iters = 10000 
+num_iters = 500
 num_dense_layer = 10
 num_hidden_units = 100
 learning_rate = 8e-5
@@ -47,29 +52,28 @@ def Network(x, y):
         optimizer = tf.train.AdamOptimizer(learning_rate)
         train_op = optimizer.minimize(loss, global_step = global_step)
         
-        summary = tf.summary.merge([tf.summary.scalar("loss", loss)])
-        
-    return bx, by, predict_y, summary, global_step, train_op
-
+    return bx, by, predict_y, global_step, train_op
 
 with tf.Session() as sess:
     with sess.graph.as_default():
         # Draw your neural network here.
         output = Network(x_placeholder, y_placeholder)
-        
-    # tensorboard writer
-    summary_writer = tf.summary.FileWriter("tensorboard", sess.graph)
     
     #init variables
     sess.run(tf.global_variables_initializer())
     
+    # Create saver.
+    saver = tf.train.Saver(tf.global_variables())
+    # Check previous save file
+    ckpt = tf.train.get_checkpoint_state(RESULT_DIR)
+    if ckpt and ckpt.model_checkpoint_path:
+        saver.restore(sess, ckpt.model_checkpoint_path)
+    
     #training 10000 times
     for epoch in range(num_iters):
 
-        output_x, output_y, output_predict, output_summary, output_step, _ = sess.run(output,
+        output_x, output_y, output_predict, output_step, _ = sess.run(output,
                  feed_dict={x_placeholder: x, y_placeholder: y})
-        
-        summary_writer.add_summary(output_summary, output_step)
         
         #print it
         if epoch % 1000 == 0:
@@ -78,4 +82,5 @@ with tf.Session() as sess:
             plt.plot(output_x, output_predict, '-')
             plt.show()
     
-    summary_writer.close()
+    saver.save(sess, SAVE_FILE, global_step = output_step)
+tf.reset_default_graph()
