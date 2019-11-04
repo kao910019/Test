@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from tensorflow.examples.tutorials.mnist import input_data
 # hyper parameters
 num_iters = 10000
-learning_rate = 8e-5
+learning_rate = 8e-4
 batch_size = 50
 
 # Load MNIST data
