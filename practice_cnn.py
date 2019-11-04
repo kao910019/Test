@@ -23,8 +23,10 @@ def Network(x, y):
         
         #Conv & Pooling
         conv1 = tf.layers.conv2d(bx, 64, 3, strides=(5, 5), padding="same")
+        conv1 = tf.nn.relu(conv1)
         pool1 = tf.layers.max_pooling2d(conv1, pool_size = 2, strides = (2, 2), padding="same")
         conv2 = tf.layers.conv2d(pool1, 128, 3, strides=(5, 5), padding="same")
+        conv2 = tf.nn.relu(conv2)
         pool2 = tf.layers.max_pooling2d(conv2, pool_size = 2, strides = (2, 2), padding="same")
         
         #Classifier
@@ -65,7 +67,8 @@ with tf.Session() as sess:
             
             x = np.reshape(x, [-1, 28, 28])
             plt.imshow(x[index])
-            plt.show()
+            plt.show(block=False)
+            plt.pause(0.01)
             
             prop = pred_y[index]
             pred_y = np.argmax(prop)
