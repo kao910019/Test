@@ -73,6 +73,6 @@ with tf.Session() as sess:
             prop = pred_y[index]
             pred_y = np.argmax(prop)
             print("Lable = {}, Predict = {} : {:3.1f}%".format(y[index], pred_y, prop[pred_y]*100.0))
-            print("Loss = {:.3f}  Accuracy = {:.3f} \n\r".format(loss, accuracy))
+            print("Loss = {:.3f}  Accuracy = {:.3f}".format(loss, accuracy))
             
 tf.reset_default_graph()
