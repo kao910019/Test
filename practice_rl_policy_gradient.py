@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+        # install gym on server
+        
+        git clone https://github.com/openai/gym
+        cd gym
+        pip install -e .
+        pip install -e '.[all]'
+        
+"""
 import tensorflow as tf
 import numpy as np
 import gym
