@@ -11,12 +11,11 @@
 import tensorflow as tf
 import numpy as np
 import gym
-import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 # hyper parameters
 num_iters = 3000
-max_steps = 100000
+max_steps = 1000
 num_dimensions = 4
 learning_rate = 1e-3
 
@@ -24,6 +23,7 @@ gamma = 0.99 # discount factor for reward
 
 # Create gym env
 env = gym.make("CartPole-v0")
+env = env.unwrapped
 
 #placeholder
 state_placeholder = tf.placeholder(tf.float32, [None, num_dimensions])
