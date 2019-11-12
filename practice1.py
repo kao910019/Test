@@ -2,6 +2,8 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('TkAgg')
 
 #source data
 x = np.arange(0, 400)
@@ -41,7 +43,9 @@ with tf.Session() as sess:
         
         #print it
         if epoch % 1000 == 0:
-            plt.figure()
+            plt.figure('output')
+            plt.clf()
             plt.plot(output_x, output_y)
             plt.plot(output_x, output_predict)
-            plt.show()
+            plt.show(block=False)
+            plt.pause(0.01)
