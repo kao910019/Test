@@ -8,7 +8,6 @@ tar -xvzf sqlite-autoconf-3240000.tar.gz
 cd sqlite-autoconf-3240000/
 ./configure --prefix=$HOME/.local/sqlite
 make && make install
-
 # download python
 # you can change your version, check https://www.python.org/ftp/python
 wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz
@@ -16,6 +15,15 @@ wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz
 tar -xvf Python-3.6.3.tgz
 # run the configure script
 cd Python-3.6.3
+# Check sqlite3 path in setup.py
+if grep -q '/.local/sqlite3/include/sqlite3' setup.py;
+then
+  echo "# Insert Sqlite3 Path Complete."
+else
+  # insert sqlite3 path in setup.py
+  sed -i "/'\/usr\/local\/include\/sqlite3',/a\                             '$HOME\/.local\/sqlite3\/include\/sqlite3'," setup.py
+  sed -i "/'\/usr\/local\/include\/sqlite3',/a\                             '$HOME\/.local\/sqlite3\/include'," setup.py
+fi
 # configure install place
 ./configure --prefix=$HOME/.local/python
 make && make install
