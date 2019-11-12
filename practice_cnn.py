@@ -2,6 +2,8 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('TkAgg')
 from tensorflow.examples.tutorials.mnist import input_data
 # hyper parameters
 num_iters = 10000
