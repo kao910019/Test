@@ -33,6 +33,7 @@ advantages_placeholder = tf.placeholder(tf.float32, [None, 1])
 def Network(state, actions, advantages):
     with tf.variable_scope("Network", reuse=tf.AUTO_REUSE):
         # 1 layer fc
+        # Sometimes your hidden unit will death, change tf.nn.relu to tf.nn.leaky_relu
         output = tf.layers.dense(state, 10, activation=tf.nn.relu)
         prob = tf.nn.softmax(tf.layers.dense(output, 2), axis=-1)
         
