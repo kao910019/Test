@@ -3,6 +3,8 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('TkAgg')
 from tqdm import tqdm
 # hyper parameters
 num_iters = 10000
