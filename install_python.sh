@@ -6,7 +6,7 @@ cd tmp
 wget https://www.sqlite.org/2018/sqlite-autoconf-3240000.tar.gz
 tar -xvzf sqlite-autoconf-3240000.tar.gz
 cd sqlite-autoconf-3240000/
-./configure --prefix=$HOME/.local/sqlite
+./configure --prefix=$HOME/.local/sqlite3
 make && make install
 # download python
 # you can change your version, check https://www.python.org/ftp/python
