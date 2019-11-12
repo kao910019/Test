@@ -3,6 +3,8 @@ import os
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('TkAgg')
 
 SYSTEM_ROOT = os.path.abspath(os.path.dirname(__file__))
 RESULT_DIR = os.path.join(SYSTEM_ROOT, 'result')
@@ -77,10 +79,12 @@ with tf.Session() as sess:
         
         #print it
         if epoch % 1000 == 0:
-            plt.figure()
+            plt.figure('output')
+            plt.clf()
             plt.plot(output_x, output_y, 'o')
             plt.plot(output_x, output_predict, '-')
-            plt.show()
+            plt.show(block=False)
+            plt.pause(0.01)
     
     saver.save(sess, SAVE_FILE, global_step = output_step)
 tf.reset_default_graph()
